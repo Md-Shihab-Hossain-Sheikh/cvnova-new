@@ -12,18 +12,7 @@
   --foreground: #111827;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --success: #16a34a;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --brand-gradient: linear-gradient(
-    135deg,
-    #6366f1 0%,
-    #8b5cf6 50%,
-    #3b82f6 100%
-  );
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
-  --shadow-md: 0 4px 12px rgb(0 0 0 / 6%);
-  --shadow-lg: 0 10px 25px rgb(0 0 0 / 8%);
+  --brand-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #3b82f6);
 }
 
 @theme inline {
@@ -36,7 +25,6 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
-
   --font-sans: "Inter", "Noto Sans Bengali", Arial, sans-serif;
 }
 
@@ -50,6 +38,7 @@ html {
 
 body {
   min-height: 100vh;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: "Inter", "Noto Sans Bengali", Arial, sans-serif;
@@ -78,7 +67,6 @@ a {
 
 ::selection {
   background: rgb(99 102 241 / 20%);
-  color: var(--foreground);
 }
 
 :focus-visible {
@@ -106,7 +94,7 @@ a {
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 6%);
 }
 
 .section-padding {
