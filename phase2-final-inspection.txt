@@ -1,0 +1,795 @@
+========== CVNOVA PHASE 2 INSPECTION ==========
+
+
+========== FILE: PROJECT_PROGRESS.md ==========
+
+# CVNova Project Progress
+
+## Current Phase
+
+Phase 1 — Fresh Project Setup and Design System
+
+## Completed
+
+- [x] Project architecture selected
+- [x] Next.js App Router selected
+- [x] TypeScript selected
+- [x] Tailwind CSS selected
+- [x] Design tokens defined
+- [x] Reusable UI component source provided
+- [x] Initial test configuration provided
+
+## Not Yet Verified
+
+- [ ] Dependencies installed
+- [ ] ESLint passes
+- [ ] TypeScript passes
+- [ ] Unit tests pass
+- [ ] Production build succeeds
+- [ ] Playwright browser installed
+- [ ] E2E test passes
+
+## Environment Variables
+
+See `.env.example`.
+
+No production credentials have been configured.
+
+## Known Issues
+
+- Local project root must be verified.
+- Dependency installation must be completed.
+- Homepage components are not yet implemented.
+- Backend features are not part of Phase 1.
+
+## Next Tasks
+
+1. Verify project root.
+2. Install dependencies.
+3. Run lint and typecheck.
+4. Run unit tests.
+5. Complete homepage foundation.
+6. Verify production build.
+7. Update this document with actual results.
+
+## Phase Status
+
+Not yet complete.
+
+
+
+========== FILE: PROJECT_STRUCTURE.md ==========
+
+# CVNova Project Structure
+
+```text
+cvnova-new/
+├── public/
+│   ├── images/
+│   └── icons/
+│
+├── tests/
+│   ├── unit/
+│   │   └── smoke.test.mjs
+│   └── e2e/
+│       └── home.spec.ts
+│
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   │
+│   ├── components/
+│   │   ├── ui/
+│   │   ├── layout/
+│   │   └── marketing/
+│   │
+│   └── lib/
+│       ├── utils.ts
+│       └── constants.ts
+│
+├── .env.example
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts
+├── package.json
+├── package-lock.json
+├── playwright.config.ts
+├── postcss.config.mjs
+├── README.md
+├── PROJECT_PROGRESS.md
+└── tsconfig.json
+```
+
+## Folder Responsibilities
+
+### public/
+Static files such as logos, icons and preview images.
+
+### tests/
+Unit and browser-based tests.
+
+### src/app/
+Next.js App Router pages, layouts and global styles.
+
+### src/components/ui/
+Reusable buttons, inputs, cards, badges and loading components.
+
+### src/components/layout/
+Navbar, footer and shared layout components.
+
+### src/components/marketing/
+Public homepage sections.
+
+### src/lib/
+Shared utilities and application constants.
+
+## Future Directories
+
+The following directories will be added in their relevant phases:
+
+- src/features/
+- src/services/
+- src/types/
+- src/hooks/
+- src/templates/
+- src/server/
+- supabase/migrations/
+
+Do not create unused placeholder source files.
+
+
+
+========== FILE: README.md ==========
+
+# CVNova
+
+CVNova is an AI-powered CV and resume builder SaaS application.
+
+## Technology Stack
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Zod
+- Lucide React
+- Playwright
+
+## Requirements
+
+- Node.js LTS
+- npm
+
+## Installation
+
+```bash
+npm install
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000
+
+## Validation
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
+
+## End-to-End Testing
+
+Install the Playwright browser:
+
+```bash
+npx playwright install chromium
+```
+
+Run:
+
+```bash
+npm run test:e2e
+```
+
+## Project Documentation
+
+- PROJECT_PROGRESS.md
+- PROJECT_STRUCTURE.md
+
+## Development Policy
+
+CVNova follows the ten development phases defined in the permanent Master Prompt.
+
+Do not skip phases or claim incomplete features as complete.
+
+
+
+========== FILE: package.json ==========
+{
+  "name": "cvnova-new",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "npm run build && playwright test"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.2",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "next": "^15.5.10",
+    "react": "^19.1.2",
+    "react-dom": "^19.1.2",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@playwright/test": "^1.55.0",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.18.6",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "^15.5.10",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  }
+}
+
+
+
+========== FILE: .env.example ==========
+
+# Application
+NEXT_PUBLIC_APP_NAME=CVNova
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Supabase - configure in Phase 3
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# AI provider - configure in Phase 7
+AI_PROVIDER=
+AI_API_KEY=
+AI_MODEL=
+
+# Security
+APP_ENCRYPTION_KEY=
+
+
+
+========== FILE: src/app/layout.tsx ==========
+
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
+
+const appUrl =
+  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+export const metadata: Metadata = {
+  title: {
+    default: "CVNova — AI Resume Builder",
+    template: "%s | CVNova",
+  },
+  description:
+    "Build professional, ATS-friendly resumes with CVNova.",
+  applicationName: "CVNova",
+  metadataBase: new URL(appUrl),
+  openGraph: {
+    title: "CVNova — AI Resume Builder",
+    description:
+      "Create professional resumes with modern templates and AI-powered tools.",
+    siteName: "CVNova",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#6366F1",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className="min-h-screen antialiased">
+        {children}
+      </body>
+    </html>
+  );
+}
+
+
+
+========== FILE: src/app/page.tsx ==========
+import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
+import Hero from "@/components/marketing/hero";
+import FeaturesSection from "@/components/marketing/features-section";
+import HowItWorks from "@/components/marketing/how-it-works";
+import TemplateShowcase from "@/components/marketing/template-showcase";
+import Testimonials from "@/components/marketing/testimonials";
+import PricingSection from "@/components/marketing/pricing-section";
+import FAQSection from "@/components/marketing/faq-section";
+
+export default function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <FeaturesSection />
+        <HowItWorks />
+        <TemplateShowcase />
+        <Testimonials />
+        <PricingSection />
+        <FAQSection />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+
+
+========== FILE: src/app/globals.css ==========
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary: #3b82f6;
+  --violet: #8b5cf6;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --foreground: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --brand-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #3b82f6);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-violet: var(--violet);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: "Inter", "Noto Sans Bengali", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", "Noto Sans Bengali", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgb(99 102 241 / 20%);
+}
+
+:focus-visible {
+  outline: 3px solid rgb(99 102 241 / 45%);
+  outline-offset: 2px;
+}
+
+.container-page {
+  width: min(100% - 40px, 1200px);
+  margin-inline: auto;
+}
+
+.gradient-text {
+  background: var(--brand-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.gradient-bg {
+  background: var(--brand-gradient);
+}
+
+.surface-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 6%);
+}
+
+.section-padding {
+  padding-block: 88px;
+}
+
+@media (max-width: 768px) {
+  .container-page {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .section-padding {
+    padding-block: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+
+========== FILE: src/middleware.ts ==========
+
+import { NextResponse } from "next/server";
+
+export function middleware() {
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/dashboard/:path*", "/builder/:path*"],
+};
+
+
+
+========== FILE: src/lib/constants.ts ==========
+
+export const APP_NAME = "CVNova";
+
+export const APP_DESCRIPTION =
+  "Build professional, ATS-friendly resumes with AI-powered tools.";
+
+export const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+export const ROUTES = {
+  home: "/",
+  features: "/features",
+  templates: "/templates",
+  pricing: "/pricing",
+  about: "/about",
+  contact: "/contact",
+  faq: "/faq",
+  login: "/login",
+  register: "/register",
+  dashboard: "/dashboard",
+  resumes: "/dashboard/resumes",
+  builder: "/builder",
+} as const;
+
+export const BRAND_COLORS = {
+  primary: "#6366F1",
+  primaryHover: "#4F46E5",
+  secondary: "#3B82F6",
+  violet: "#8B5CF6",
+  background: "#F9FAFB",
+  surface: "#FFFFFF",
+  foreground: "#111827",
+  muted: "#6B7280",
+  border: "#E5E7EB",
+} as const;
+
+export const TEMPLATE_CATEGORIES = [
+  "Modern",
+  "Professional",
+  "Minimal",
+  "Creative",
+  "Executive",
+  "Student",
+  "Academic",
+  "ATS-Friendly",
+] as const;
+
+export const RESUME_SECTIONS = [
+  "Personal Information",
+  "Professional Summary",
+  "Work Experience",
+  "Education",
+  "Skills",
+  "Projects",
+  "Certifications",
+  "Languages",
+  "Awards and Achievements",
+  "Volunteer Experience",
+  "Publications",
+  "Interests",
+  "References",
+  "Custom Sections",
+] as const;
+
+
+
+========== FILE: src/lib/utils.ts ==========
+
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}
+
+export function formatDate(date: Date | string): string {
+  const parsed = date instanceof Date ? date : new Date(date);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(parsed);
+}
+
+export function truncateText(
+  value: string,
+  maxLength: number,
+): string {
+  if (maxLength <= 0) return "";
+  if (value.length <= maxLength) return value;
+
+  return `${value.slice(0, maxLength).trimEnd()}...`;
+}
+
+
+
+========== FILE: src/lib/supabase/client.ts ==========
+
+
+========== FILE: src/lib/supabase/server.ts ==========
+
+
+========== FILE: src/lib/supabase/middleware.ts ==========
+
+
+========== FILE: src/lib/validations/auth.ts ==========
+
+
+========== FILE: src/lib/auth/permissions.ts ==========
+
+
+========== FILE: src/templates/registry.ts ==========
+import type { ResumeTemplate } from "@/templates/types";
+
+export const templates: ResumeTemplate[] = [
+  {
+    slug: "modern-professional",
+    name: "Modern Professional",
+    category: "Modern",
+    description: "A balanced layout for contemporary professional applications.",
+    accent: "#4f46e5",
+    layout: "sidebar",
+    tags: ["Modern", "Professional"],
+  },
+  {
+    slug: "classic-executive",
+    name: "Classic Executive",
+    category: "Executive",
+    description: "A structured traditional layout for experienced professionals.",
+    accent: "#334155",
+    layout: "classic",
+    tags: ["Executive", "Professional"],
+  },
+  {
+    slug: "minimal-clean",
+    name: "Minimal Clean",
+    category: "Minimal",
+    description: "A simple, readable layout with a focus on content.",
+    accent: "#0f766e",
+    layout: "minimal",
+    tags: ["Minimal", "ATS-Friendly"],
+  },
+  {
+    slug: "creative-profile",
+    name: "Creative Profile",
+    category: "Creative",
+    description: "A distinctive visual direction for creative portfolios.",
+    accent: "#9333ea",
+    layout: "sidebar",
+    tags: ["Creative", "Modern"],
+  },
+  {
+    slug: "student-starter",
+    name: "Student Starter",
+    category: "Student",
+    description: "A clear structure for education, projects, and early experience.",
+    accent: "#2563eb",
+    layout: "classic",
+    tags: ["Student", "Academic"],
+  },
+  {
+    slug: "simple-ats",
+    name: "Simple ATS",
+    category: "ATS-Friendly",
+    description: "A straightforward single-column resume structure.",
+    accent: "#475569",
+    layout: "minimal",
+    tags: ["ATS-Friendly", "Minimal"],
+  },
+];
+
+export function getTemplateBySlug(slug: string) {
+  return templates.find((template) => template.slug === slug);
+}
+
+
+
+========== FILE: src/templates/types.ts ==========
+export type ResumeTemplate = {
+  slug: string;
+  name: string;
+  category: string;
+  description: string;
+  accent: string;
+  layout: "sidebar" | "classic" | "minimal";
+  tags: string[];
+};
+
+
+
+========== FILE: src/templates/renderer.tsx ==========
+
+
+========== FILE LIST: src/app ==========
+src\app\error.tsx
+src\app\globals.css
+src\app\layout.tsx
+src\app\loading.tsx
+src\app\not-found.tsx
+src\app\page.tsx
+src\app\features\page.tsx
+src\app\templates\page.tsx
+
+
+========== FILE LIST: src/components ==========
+src\components\admin\admin-sidebar.tsx
+src\components\admin\admin-stat-card.tsx
+src\components\admin\approval-table.tsx
+src\components\builder\builder-shell.tsx
+src\components\builder\certifications-form.tsx
+src\components\builder\custom-section-form.tsx
+src\components\builder\editor-panel.tsx
+src\components\builder\education-form.tsx
+src\components\builder\experience-form.tsx
+src\components\builder\personal-info-form.tsx
+src\components\builder\preview-panel.tsx
+src\components\builder\projects-form.tsx
+src\components\builder\section-sidebar.tsx
+src\components\builder\skills-form.tsx
+src\components\dashboard\recent-activity.tsx
+src\components\dashboard\resume-card.tsx
+src\components\dashboard\stat-card.tsx
+src\components\dashboard\usage-card.tsx
+src\components\layout\breadcrumbs.tsx
+src\components\layout\dashboard-header.tsx
+src\components\layout\footer.tsx
+src\components\layout\navbar.tsx
+src\components\layout\sidebar.tsx
+src\components\layout\site-shell.tsx
+src\components\marketing\contact-form.tsx
+src\components\marketing\faq-list.tsx
+src\components\marketing\faq-section.tsx
+src\components\marketing\features-section.tsx
+src\components\marketing\hero.tsx
+src\components\marketing\how-it-works.tsx
+src\components\marketing\page-hero.tsx
+src\components\marketing\pricing-section.tsx
+src\components\marketing\template-showcase.tsx
+src\components\marketing\testimonials.tsx
+src\components\templates\template-card.tsx
+src\components\templates\template-filter.tsx
+src\components\templates\template-grid.tsx
+src\components\ui\badge.tsx
+src\components\ui\button.tsx
+src\components\ui\card.tsx
+src\components\ui\dropdown.tsx
+src\components\ui\input.tsx
+src\components\ui\modal.tsx
+src\components\ui\skeleton.tsx
+src\components\ui\spinner.tsx
+src\components\ui\textarea.tsx
+
+
+========== FILE LIST: src/lib ==========
+src\lib\constants.ts
+src\lib\utils.ts
+src\lib\ai\prompts.ts
+src\lib\ai\provider.ts
+src\lib\ai\types.ts
+src\lib\auth\permissions.ts
+src\lib\pdf\fonts.ts
+src\lib\pdf\generate.ts
+src\lib\supabase\client.ts
+src\lib\supabase\middleware.ts
+src\lib\supabase\server.ts
+src\lib\validations\ai.ts
+src\lib\validations\auth.ts
+src\lib\validations\resume.ts
+
+
+========== FILE LIST: src/templates ==========
+src\templates\registry.ts
+src\templates\renderer.tsx
+src\templates\types.ts
+
+
+========== FILE LIST: supabase ==========
+supabase\config.toml
+supabase\seed.sql
+supabase\migrations\001_initial_schema.sql
+supabase\migrations\002_auth_profiles.sql
+supabase\migrations\003_resumes.sql
+supabase\migrations\004_templates.sql
+supabase\migrations\005_ai_and_ats.sql
+supabase\migrations\006_download_workflow.sql
+supabase\migrations\007_notifications.sql
+supabase\migrations\008_roles_and_policies.sql
+supabase\migrations\009_indexes_and_functions.sql
